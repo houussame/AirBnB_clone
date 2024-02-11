@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 '''we define a classBase'''
+
 import uuid
 from datetime import datetime
 import models
@@ -10,17 +11,18 @@ class BaseModel():
 
     def __init__(self, *args, **kwargs):
         '''creat new base'''
-        '''if kwargs == 0:'''
-        self.id = str(uuid.uuid4())
-        self.created_at = datetime.now()
-        self.updated_at = datetime.now()
-        models.storage.new(self)
-        for (k, v) in kwargs.items():
-            if k == "created_at" or v == "update_at":
-                self.__dict__[k] = datetime.strptime(v,
+        if kwargs == 0:
+            self.id = str(uuid.uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
+            models.storage.new(self)
+        else:
+            for (k, v) in kwargs.items():
+                if k == "created_at" or v == "update_at":
+                    self.__dict__[k] = datetime.strptime(v,
                                      "%Y-%m-%dT%H:%M:%S.%f")
-            else:
-                self.__dict__[k] = v
+                else:
+                    self.__dict__[k] = v
 
     def __str__(self):
         '''the string representation of an instance'''
