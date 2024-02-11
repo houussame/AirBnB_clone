@@ -19,13 +19,14 @@ class BaseModel:
             for (k, v) in kwargs.items():
                 if k == "created_at" or v == "update_at":
                     self.__dict__[k] = datetime.strptime(v,
-                            "%Y-%m-%dT%H:%M:%S.%f")
+                                     "%Y-%m-%dT%H:%M:%S.%f")
                 else:
                     self.__dict__[k] = v
+
     def __str__(self):
         '''the string representation of an instance'''
-        return f"[{}] ({}) {}".format(self.__class__.__name__,
-                self.id, self.__dict__)
+        return f("[{}] ({}) {}".format(self.__class__.__name__,
+                                        self.id, self.__dict__))
 
     def save(self):
         '''update the update_at'''
